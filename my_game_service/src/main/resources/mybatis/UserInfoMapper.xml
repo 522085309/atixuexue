@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my_game_service.mapper.UserInfoMapper">
+    <select id="findUserInfo" parameterType="java.lang.String" resultType="_int">
+        select id from user_info
+         <where>
+             <if test="uName!=null">
+                 user_name=#{uName}
+             </if>
+             <if test="passWd!=null">
+                 AND pass_wd=#{passWd}
+             </if>
+         </where>
+    </select>
+
+
+    <select id="findUserId" parameterType="hashmap" resultType="Integer">
+        select id from user_info
+        <where>
+            <if test="uName!=null">
+                user_name=#{uName}
+            </if>
+            <if test="passWd!=null">
+                AND pass_wd=#{passWd}
+            </if>
+        </where>
+    </select>
+</mapper>
