@@ -191,7 +191,7 @@ class  SingleLinkedList{
             if(temp.next==null){
                 break;
             }
-            //找到了待删除的数据
+            //找到了待删除的数据 待删除的数据时temp的下一个节点
             if(temp.next.no==heroNode.no){
                 flag=true;
                 break;
