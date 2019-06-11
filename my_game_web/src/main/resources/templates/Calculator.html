@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="result">
+    <input type="button" v-on:click="getResult" value="提交">
+    <p v-model="result1">{{result1}}</p>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+   const vue=new Vue({
+        el: '#app',
+        data:{
+            result: '',
+            result1:''
+        },
+        methods:{
+            getResult:function () {
+                $.ajax({
+                    url:"/findResult",
+                    type:"post",
+                    data:{
+                        result:vue.result,
+                    },
+                    success:function (data) {
+                        vue.result1=data;
+                    }
+                })
+            }
+        }
+    })
+</script>

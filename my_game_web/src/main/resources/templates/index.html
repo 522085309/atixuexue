@@ -7,10 +7,11 @@
     <title></title>
 </head>
 <div id="login">
-    <form>
+    <form action="/loginInfo">
         账号：<input type="text" value="账号" v-model="uName">
         密码：<input type="password" value="密码" v-model="passWd">
-        提交：<input type="button" value="提交" v-on:click="submitInfo">
+        提交：<input type="submit" value="提交">
+        <!--提交：<input type="button" value="提交" v-on:click="submitInfo">-->
     </form>
 </div>
 <body>
@@ -23,29 +24,29 @@
      data:{
          uName:'',
          passWd:''
-     },
-     methods:{
-         submitInfo:function(){
-             $.ajax({
-                 url:"/loginInfo",
-                 type:"post",
-                 data:{
-                     uName:login.uName,
-                     passWd:login.passWd
-                 },
-                 success:function (data) {
-                     alert(data['msg'])
-                 }
-             })
-//             axios.post('/loginInfo',{
-//                 userName:login.userName,
-//                 passWd:login.passWd
-//             }).then(function (response) {
-//                 alert(response['msg']);
-//             }).catch(function (error) {
-//                 alert(response.code);
-//             })
-        }
      }
+//     methods:{
+//         submitInfo:function(){
+//             $.ajax({
+//                 url:"/loginInfo",
+//                 type:"post",
+//                 data:{
+//                     uName:login.uName,
+//                     passWd:login.passWd
+//                 }
+////                 success:function (data) {
+////                     alert(data['msg'])
+////                 }
+//             })
+////             axios.post('/loginInfo',{
+////                 userName:login.userName,
+////                 passWd:login.passWd
+////             }).then(function (response) {
+////                 alert(response['msg']);
+////             }).catch(function (error) {
+////                 alert(response.code);
+////             })
+//        }
+//     }
  })
 </script>
