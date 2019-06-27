@@ -9,7 +9,11 @@ package my_game_interface.dataStruct.lineStruct.linkedlist;
  * @date 2019/6/10 0010 18:56
 */
 public class Josephu {
-
+    public static void main(String[] args) {
+        CircleSingleLinkedList circleSingleLinkedList=new CircleSingleLinkedList();
+        circleSingleLinkedList.add(5);
+        circleSingleLinkedList.list();
+    }
 }
 
 /**
