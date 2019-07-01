@@ -13,31 +13,41 @@ public class QuickSort {
         int r = right;
         int pivot = arr[(left+right)/2];
         int temp = 0;
-        while (l < r){
-            while (arr[l] < pivot){
+        //循环的目的是为了让大于pivot的都放在pivot右边，小于pivot的放在piovt左边
+        while (l < r) {
+            //如果小于pivot，则移动下标找下一个
+            while (arr[l] < pivot) {
                 l += l;
             }
-            while (arr[r] > pivot){
+            while (arr[r] > pivot) {
                 r -= 1;
             }
-            if (l >= r){
+            //如果l>r，则说明已经满足小于pivot的在左边，大于pivot的在右边
+            if (l >= r) {
                 break;
             }
+            //交换位置
             temp = arr[l];
             arr[l] = arr[r];
             arr[r] = temp;
-            if (arr[l] >= pivot){
+            //如果交换完，发现arr[l]等于pivot，则r--
+            if (arr[l] == pivot) {
                 r -= 1;
             }
-            if (arr[r] <= pivot){
+            if (arr[r] == pivot) {
                 l += 1;
             }
-            while (left < r){
-                quickSort(arr,left,r);
-            }
-            while (right > r){
-                quickSort(arr,l,right);
-            }
+        }
+        if(l == r){
+            l += 1;
+            r -= 1;
+        }
+        //递归左边
+        if (left < r){
+            quickSort(arr,left,r);
+        }
+        if (right > l){
+            quickSort(arr,l,right);
         }
     }
 }
