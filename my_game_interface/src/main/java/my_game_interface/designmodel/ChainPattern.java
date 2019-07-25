@@ -4,82 +4,74 @@ package my_game_interface.designmodel;
  * 责任链模式
  */
 public class ChainPattern {
-    private static AbstractLogger getChainOfLoggers(){
-
-        AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.ERROR);
-        AbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
-        AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
-
-        errorLogger.setNextLogger(fileLogger);
-        fileLogger.setNextLogger(consoleLogger);
-
-        return errorLogger;
-    }
 
     public static void main(String[] args) {
-        AbstractLogger loggerChain = getChainOfLoggers();
-
-        loggerChain.logMessage(AbstractLogger.INFO, "INFO");
-
-        loggerChain.logMessage(AbstractLogger.DEBUG, "DEBUG");
-
-        loggerChain.logMessage(AbstractLogger.ERROR, "ERROR");
+        GroupLeader groupLeader = new GroupLeader();
+        Director director = new Director();
+        Manager manager = new Manager();
+        groupLeader.setNextLeader(director);
+        director.setNextLeader(manager);
+        groupLeader.handleRequest(500);
     }
 }
 
-abstract class AbstractLogger {
-    static int INFO = 1;
-    static int DEBUG = 2;
-    static int ERROR = 3;
-    int level;
-    AbstractLogger nextLogger;
+abstract class Leader{
+    //  上级领导
+    private Leader nextLeader;
 
-    void logMessage(int level,String message){
-        if (this.level < level){
-            write(message);
+    public void setNextLeader(Leader nextLeader) {
+        this.nextLeader = nextLeader;
+    }
+
+    //  报账处理类
+    public final void handleRequest(int money){
+        if (money < limit()){
+            handle(money);
+        }else {
+            if (null != nextLeader){
+                nextLeader.handleRequest(money);
+            }
         }
-        if (nextLogger != null){
-            nextLogger.logMessage(level,message);
-        }
     }
-
-    public void setNextLogger(AbstractLogger nextLogger) {
-        this.nextLogger = nextLogger;
-    }
-    abstract void write(String message);
+    abstract int limit();
+    abstract void handle(int money);
 }
+class GroupLeader extends Leader{
 
-class ConsoleLogger extends AbstractLogger {
-
-    public ConsoleLogger(int level){
-        this.level = level;
-    }
     @Override
-    protected void write(String message) {
-        System.out.println("ConsoleLogger: " + message);
-    }
-}
-
-class ErrorLogger extends AbstractLogger {
-
-    public ErrorLogger(int level){
-        this.level = level;
+    int limit() {
+        return 1000;
     }
 
     @Override
-    protected void write(String message) {
-        System.out.println("ErrorLogger: " + message);
+    void handle(int money) {
+        System.out.println("组长批复报销："+money+"元");
     }
 }
 
-class FileLogger extends AbstractLogger {
+class Director extends Leader{
 
-    public FileLogger(int level){
-        this.level = level;
+    @Override
+    int limit() {
+        return 5000;
     }
 
     @Override
-    protected void write(String message) {
-        System.out.println("FileLogger: " + message);
+    void handle(int money) {
+        System.out.println("主管批复报销："+money+"元");
     }
 }
+
+class Manager extends Leader{
+
+    @Override
+    int limit() {
+        return 10000;
+    }
+
+    @Override
+    void handle(int money) {
+        System.out.println("经理批复报销："+money+"元");
+    }
+}
+

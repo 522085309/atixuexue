@@ -29,9 +29,9 @@ public class FilterPattern {
 
         System.out.println("\nSingle Males: ");
         printPersons(singleMale.meetCriteria(persons));
-
-        System.out.println("\nSingle Or Females: ");
-        printPersons(singleOrFemale.meetCriteria(persons));
+//
+//        System.out.println("\nSingle Or Females: ");
+//        printPersons(singleOrFemale.meetCriteria(persons));
     }
     public static void printPersons(List<Person> persons){
         for (Person person : persons) {
